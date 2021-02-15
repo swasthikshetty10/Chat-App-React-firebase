@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState  , useEffect} from 'react';
 import './App.css';
 
 import firebase from 'firebase/app';
@@ -10,7 +10,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 firebase.initializeApp({
- //  paste FirebaseConfig here
+  // your config
+  
 })
 
 const auth = firebase.auth();
@@ -19,9 +20,10 @@ const analytics = firebase.analytics();
 
 
 function App() {
-
+  
   const [user] = useAuthState(auth);
-
+  const scrollref = useRef();
+  
   return (
     <div className="App">
       <header>
@@ -30,8 +32,10 @@ function App() {
       </header>
 
       <section>
-        {user ? <ChatRoom /> : <SignIn />}
+        {user ? <ChatRoom /> : <SignIn /> }
+        <span ref={scrollref}></span>
       </section>
+
 
     </div>
   );
@@ -61,15 +65,20 @@ function SignOut() {
 
 
 function ChatRoom() {
-  const dummy = useRef();
+  const dummy = useRef(); //To track message
   const messagesRef = firestore.collection('messages');
-  const query = messagesRef.orderBy('createdAt').limit(25);
-
+  const query = messagesRef.orderBy('createdAt');
+  const scrollref = useRef();
+  useEffect(() => {
+    scrollref.current.scrollIntoView({ behavior: 'smooth' });
+  });
+  
+  
   const [messages] = useCollectionData(query, { idField: 'id' });
 
   const [formValue, setFormValue] = useState('');
 
-
+  
   const sendMessage = async (e) => {
     e.preventDefault();
 
@@ -88,18 +97,19 @@ function ChatRoom() {
 
   return (<>
     <main>
-
+      
       {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
+      
 
       <span ref={dummy}></span>
 
     </main>
-
+    
     <form onSubmit={sendMessage}>
-
+    <span ref={scrollref}></span>
       <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="say something nice" />
 
-      <button type="submit" disabled={!formValue}>🕊️</button>
+      <button type="submit" disabled={!formValue}>Send</button>
 
     </form>
   </>)
