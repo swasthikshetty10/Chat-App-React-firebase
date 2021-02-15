@@ -1,17 +1,16 @@
 {
-  "name": "my-app",
+  "name": "react-chat",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.9",
-    "@testing-library/react": "^11.2.5",
-    "@testing-library/user-event": "^12.7.1",
-    "firebase": "^8.2.7",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "firebase": "^7.20.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "react-firebase-hooks": "^2.2.0",
-    "react-scripts": "4.0.2",
-    "web-vitals": "^1.1.0"
+    "react-scripts": "3.4.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -20,10 +19,7 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "extends": "react-app"
   },
   "browserslist": {
     "production": [
@@ -36,17 +32,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "main": "firebaseconfig.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/swasthikshetty10/Chat-App-React-firebase.git"
-  },
-  "author": "swasthik",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/swasthikshetty10/Chat-App-React-firebase/issues"
-  },
-  "homepage": "https://github.com/swasthikshetty10/Chat-App-React-firebase#readme"
+  }
 }
