@@ -11,7 +11,7 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 firebase.initializeApp({
   // your config
-  
+ 
 })
 
 const auth = firebase.auth();
@@ -69,10 +69,6 @@ function ChatRoom() {
   const messagesRef = firestore.collection('messages');
   const query = messagesRef.orderBy('createdAt');
   const scrollref = useRef();
-  useEffect(() => {
-    scrollref.current.scrollIntoView({ behavior: 'smooth' });
-  });
-  
   
   const [messages] = useCollectionData(query, { idField: 'id' });
 
@@ -106,7 +102,7 @@ function ChatRoom() {
     </main>
     
     <form onSubmit={sendMessage}>
-    <span ref={scrollref}></span>
+    
       <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="say something nice" />
 
       <button type="submit" disabled={!formValue}>Send</button>
@@ -118,14 +114,19 @@ function ChatRoom() {
 
 function ChatMessage(props) {
   const { text, uid, photoURL } = props.message;
-
+  const scrollref = useRef();
   const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
-
+  
+  useEffect(() => {
+    scrollref.current.scrollIntoView({ behavior: 'smooth' });
+  });
+  
   return (<>
     <div className={`message ${messageClass}`}>
       <img src={photoURL || 'https://api.adorable.io/avatars/23/abott@adorable.png'} />
       <p>{text}</p>
     </div>
+    <span ref={scrollref}></span>
   </>)
 }
 
